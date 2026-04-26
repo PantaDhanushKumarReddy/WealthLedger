@@ -10,7 +10,7 @@ export const fetchTransactions = createAsyncThunk<Transaction[]>(
 
     const categories = ["Food", "Travel", "Shopping", "Bills", "Health"];
 
-    return Array.from({ length: 12 }).map(
+    return Array.from({ length: 30 }).map(
       (): Transaction => ({
         id: faker.string.uuid(),
 
@@ -21,7 +21,7 @@ export const fetchTransactions = createAsyncThunk<Transaction[]>(
         amount: Number(
           faker.finance.amount({
             min: 100,
-            max: 6000,
+            max: 8000,
             dec: 0,
           }),
         ),

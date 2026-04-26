@@ -6,8 +6,17 @@ export interface Transaction {
   date: string;
 }
 
+export interface TransactionFilters {
+  category: string;
+  minAmount: number;
+  maxAmount: number;
+  days: number;
+}
+
 export interface TransactionsState {
   data: Transaction[];
   loading: boolean;
   error: string | null;
+
+  filters: TransactionFilters;
 }

@@ -35,7 +35,7 @@ const authSlice = createSlice({
 
       .addCase(loginUser.rejected, (state) => {
         state.loading = false;
-        state.error = "Username required / Password = 1234";
+        state.error = "Password is 1234";
       });
   },
 });

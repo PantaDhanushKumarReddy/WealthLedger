@@ -1,19 +1,18 @@
 "use client";
+
+import { useAppDispatch } from "@/app/hooks";
+
 import { logout } from "@/features/auth/slices/authSlice";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { selectUsername } from "@/features/auth/selectors/authSelectors";
+
+import TransactionsPanel from "./TransactionsPanel";
 
 export default function DashboardShell() {
   const dispatch = useAppDispatch();
 
-  const username = useAppSelector(selectUsername);
-
-  const txCount = useAppSelector((state) => state.transactions.data.length);
-
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen p-8 max-w-6xl mx-auto">
       <div className="flex justify-between mb-8">
-        <h1 className="text-3xl font-bold">Welcome {username}</h1>
+        <h1 className="text-3xl font-bold">Dashboard</h1>
 
         <button
           onClick={() => dispatch(logout())}
@@ -23,9 +22,7 @@ export default function DashboardShell() {
         </button>
       </div>
 
-      <div className="p-6 bg-white/5 rounded-2xl">
-        Transactions Loaded: {txCount}
-      </div>
+      <TransactionsPanel />
     </div>
   );
 }
