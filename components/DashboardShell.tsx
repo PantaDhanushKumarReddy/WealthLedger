@@ -5,6 +5,8 @@ import { useAppDispatch } from "@/app/hooks";
 import { logout } from "@/features/auth/slices/authSlice";
 
 import TransactionsPanel from "./TransactionsPanel";
+import PortfolioPanel from "./PortfolioPanel";
+import NotificationsPanel from "./NotificationsPanel";
 
 export default function DashboardShell() {
   const dispatch = useAppDispatch();
@@ -22,7 +24,9 @@ export default function DashboardShell() {
         </button>
       </div>
 
+      <PortfolioPanel />
       <TransactionsPanel />
+      <NotificationsPanel />
     </div>
   );
 }
