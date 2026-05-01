@@ -8,7 +8,7 @@ import TransactionsPanel from "./TransactionsPanel";
 import PortfolioPanel from "./PortfolioPanel";
 import NotificationsPanel from "./NotificationsPanel";
 import CurrencyPanel from "./CurrencyPanel";
-
+import NetWorthPanel from "./NetWorthPanel";
 export default function DashboardShell() {
   const dispatch = useAppDispatch();
 
@@ -24,6 +24,7 @@ export default function DashboardShell() {
           Logout
         </button>
       </div>
+      <NetWorthPanel />
       <CurrencyPanel />
       <PortfolioPanel />
       <TransactionsPanel />
