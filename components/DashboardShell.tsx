@@ -7,6 +7,7 @@ import { logout } from "@/features/auth/slices/authSlice";
 import TransactionsPanel from "./TransactionsPanel";
 import PortfolioPanel from "./PortfolioPanel";
 import NotificationsPanel from "./NotificationsPanel";
+import CurrencyPanel from "./CurrencyPanel";
 
 export default function DashboardShell() {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ export default function DashboardShell() {
           Logout
         </button>
       </div>
-
+      <CurrencyPanel />
       <PortfolioPanel />
       <TransactionsPanel />
       <NotificationsPanel />

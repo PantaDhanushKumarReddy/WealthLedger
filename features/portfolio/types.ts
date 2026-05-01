@@ -6,6 +6,7 @@ export interface PortfolioHolding {
 export interface PortfolioState {
   holdings: PortfolioHolding[];
   totalValue: number;
+  convertedValue: number;
   loading: boolean;
   error: string | null;
 }
