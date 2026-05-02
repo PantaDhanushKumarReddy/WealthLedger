@@ -6,10 +6,9 @@ import { selectConvertedValue } from "@/features/portfolio/selectors/portfolioSe
 import { selectAlerts } from "@/features/notifications/selectors/notificationsSelectors";
 
 
-export const selectNetWorth = createSelector(
-  [selectConvertedValue],
-  (portfolioValue) => portfolioValue,
-);
+// selectConvertedValue already handles the net worth calculation with memoization,
+// so no createSelector wrapper is needed — that would just return its own input unchanged.
+export const selectNetWorth = selectConvertedValue;
 
 export const selectRecentAlerts = createSelector([selectAlerts], (alerts) =>
   alerts.slice(0, 3),
