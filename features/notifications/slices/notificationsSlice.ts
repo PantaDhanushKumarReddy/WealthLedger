@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchCryptoPrices } from "@/features/crypto/thunks/cryptoThunk";
 
-import type { NotificationsState } from "../types";
+import type { NotificationsState, AlertItem } from "../types";
 
 const initialState: NotificationsState = {
   alerts: [],
@@ -12,7 +12,12 @@ const initialState: NotificationsState = {
 const slice = createSlice({
   name: "notifications",
   initialState,
-  reducers: {},
+  reducers: {
+    addAlert: (state, action: PayloadAction<AlertItem>) => {
+      state.alerts.unshift(action.payload);
+      state.alerts = state.alerts.slice(0, 5);
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -48,4 +53,5 @@ const slice = createSlice({
   },
 });
 
+export const { addAlert } = slice.actions;
 export default slice.reducer;

@@ -8,7 +8,7 @@ import notificationsReducer from "@/features/notifications/slices/notificationsS
 import currencyReducer from "@/features/currency/slices/currencySlice";
 import { listenerMiddleware } from "@/features/middleware/listenerMiddleware";
 import { preferenceMiddleware } from "@/features/middleware/preferenceMiddleware";
-
+import { budgetListener } from "@/features/middleware/budgetListener";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -22,6 +22,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .prepend(listenerMiddleware.middleware)
+      .prepend(budgetListener.middleware)
       .concat(preferenceMiddleware),
 });
 
