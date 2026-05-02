@@ -1,68 +1,56 @@
 "use client";
 
 import { useAppSelector } from "@/app/hooks";
-
 import usePollingPrices from "@/features/hooks/usePollingPrices";
 import {
   selectNetWorth,
-  selectRecentAlerts,
   selectAssetBreakdown,
 } from "@/features/dashboard/selectors/dashboardSelector";
-
 import { selectPreferredCurrency } from "@/features/currency/selectors/currencySelectors";
+
+const assetColors: Record<string, string> = {
+  BTC: "text-amber-400",
+  ETH: "text-indigo-400",
+  SOL: "text-purple-400",
+};
 
 export default function NetWorthPanel() {
   usePollingPrices();
 
   const netWorth = useAppSelector(selectNetWorth);
-
-  const alerts = useAppSelector(selectRecentAlerts);
-
   const assets = useAppSelector(selectAssetBreakdown);
-
   const currency = useAppSelector(selectPreferredCurrency);
 
   return (
-    <div className="mt-8 space-y-6">
-      {/* Net Worth */}
-      <div className="p-6 rounded-2xl bg-white/5">
-        <p className="text-slate-400">Net Worth</p>
+    <div className="rounded-2xl bg-linear-to-br from-cyan-500/10 via-slate-900 to-slate-900 border border-cyan-500/20 p-6">
+      <div className="grid lg:grid-cols-2 gap-6">
 
-        <h2 className="text-4xl font-bold">
-          {currency} {netWorth.toFixed(2)}
-        </h2>
-      </div>
-
-      {/* Asset Breakdown */}
-      <div className="p-6 rounded-2xl bg-white/5">
-        <h3 className="text-xl font-semibold mb-4">Asset Breakdown</h3>
-
-        <div className="space-y-3">
-          {assets.map((item) => (
-            <div key={item.symbol} className="flex justify-between">
-              <span>{item.symbol}</span>
-
-              <span>
-                {currency} {(item.value || 0).toFixed(2)}
-              </span>
-            </div>
-          ))}
+        {/* Net Worth */}
+        <div>
+          <p className="text-xs font-medium text-cyan-400 uppercase tracking-widest mb-1">Total Net Worth</p>
+          <h2 className="text-4xl font-bold tracking-tight">
+            {currency} {netWorth.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </h2>
+          <p className="text-slate-400 text-sm mt-2">Live market value · updates every 60s</p>
         </div>
-      </div>
 
-      {/* Alerts */}
-      <div className="p-6 rounded-2xl bg-white/5">
-        <h3 className="text-xl font-semibold mb-4">Recent Alerts</h3>
-
-        <div className="space-y-2">
-          {alerts.map((item) => (
-            <div key={item.id} className="text-sm text-slate-300">
-              {item.message}
-            </div>
-          ))}
-
-          {alerts.length === 0 && <p className="text-slate-400">No alerts</p>}
+        {/* Asset Breakdown */}
+        <div>
+          <p className="text-xs font-medium text-slate-400 uppercase tracking-widest mb-3">Asset Breakdown</p>
+          <div className="space-y-2">
+            {assets.map((item) => (
+              <div key={item.symbol} className="flex items-center justify-between">
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-md bg-white/5 ${assetColors[item.symbol] ?? "text-slate-300"}`}>
+                  {item.symbol}
+                </span>
+                <span className="font-semibold text-sm">
+                  {currency} {(item.value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
     </div>
   );
