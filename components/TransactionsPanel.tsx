@@ -13,6 +13,7 @@ import {
   selectTransactionTotal,
   selectTransactionCount,
   selectCategories,
+  selectFilters,
 } from "@/features/transactions/selectors/transactionSelectors";
 
 const categoryColors: Record<string, string> = {
@@ -29,10 +30,10 @@ export default function TransactionsPanel() {
   const total = useAppSelector(selectTransactionTotal);
   const count = useAppSelector(selectTransactionCount);
   const categories = useAppSelector(selectCategories);
+  const filters = useAppSelector(selectFilters);
 
   return (
     <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6">
-
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
@@ -50,21 +51,27 @@ export default function TransactionsPanel() {
           className="bg-slate-800 border border-slate-700 text-slate-300 text-sm rounded-xl px-3 py-2.5 outline-none focus:border-cyan-500 transition-colors"
         >
           {categories.map((item) => (
-            <option key={item} value={item}>{item}</option>
+            <option key={item} value={item}>
+              {item}
+            </option>
           ))}
         </select>
 
         <input
           type="number"
           placeholder="Min ₹"
-          onChange={(e) => dispatch(setMinAmountFilter(Number(e.target.value) || 0))}
+          onChange={(e) =>
+            dispatch(setMinAmountFilter(Number(e.target.value) || 0))
+          }
           className="bg-slate-800 border border-slate-700 text-slate-300 text-sm rounded-xl px-3 py-2.5 outline-none focus:border-cyan-500 transition-colors placeholder-slate-500"
         />
 
         <input
           type="number"
           placeholder="Max ₹"
-          onChange={(e) => dispatch(setMaxAmountFilter(Number(e.target.value) || 100000))}
+          onChange={(e) =>
+            dispatch(setMaxAmountFilter(Number(e.target.value) || 100000))
+          }
           className="bg-slate-800 border border-slate-700 text-slate-300 text-sm rounded-xl px-3 py-2.5 outline-none focus:border-cyan-500 transition-colors placeholder-slate-500"
         />
 
@@ -104,13 +111,19 @@ export default function TransactionsPanel() {
             <p className="font-medium text-sm truncate">{item.title}</p>
 
             <div>
-              <span className={`text-xs font-medium px-2.5 py-1 rounded-lg ${categoryColors[item.category] ?? "bg-slate-700 text-slate-300"}`}>
+              <span
+                className={`text-xs font-medium px-2.5 py-1 rounded-lg ${categoryColors[item.category] ?? "bg-slate-700 text-slate-300"}`}
+              >
                 {item.category}
               </span>
             </div>
 
             <p className="text-sm text-slate-400">
-              {new Date(item.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+              {new Date(item.date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
             </p>
 
             <p className="text-right font-semibold text-sm">
